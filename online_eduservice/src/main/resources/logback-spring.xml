@@ -11,7 +11,7 @@
 
     <!-- 彩色日志 -->
     <!-- 配置格式变量：CONSOLE_LOG_PATTERN 彩色日志格式 -->
-    <!-- magenta:洋红 -->
+    <!-- magenta:洋红  -->
     <!-- boldMagenta:粗红-->
     <!-- cyan:青色 -->
     <!-- white:白色 -->
