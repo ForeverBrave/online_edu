@@ -31,4 +31,4 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl   # mybatis日志
 logging:
   level:
-    root: warn  # 设置日志级别(只有warn以及warn级别以上的才输出到控制台)
+    root: warn  # 设置日志级别(warn以及warn级别以上的才输出到控制台)
