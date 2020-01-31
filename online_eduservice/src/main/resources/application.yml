@@ -1,0 +1,31 @@
+# 服务端口
+server:
+  port: 8001
+# 服务名
+spring:
+  application:
+    name: online_eduservice
+# 环境设置：dev、test、prod
+  profiles:
+    active: dev
+# mysql数据库连接
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/online_edu
+    username: root
+    password: root
+    type: com.zaxxer.hikari.HikariDataSource   # Hikari是Spring Boot 2.0之后默认整合的数据库连接池，比druid更快的数据库连接池
+    hikari:
+      pool-name: GuliHikariPool   # 连接池名称，默认HikariPool-1
+      maximum-pool-size: 12   # 最大连接数，小于等于0会被重置为默认值10；大于零小于1会被重置为minimum-idle的值
+      connection-timeout: 60000   # 连接超时时间:毫秒，小于250毫秒，否则被重置为默认值30秒
+      minimum-idle: 10    # 最小空闲连接，默认值10，小于0或大于maximum-pool-size，都会重置为maximum-pool-size
+      idle-timeout: 500000    # 空闲连接超时时间，默认值600000（10分钟），大于等于max-lifetime且max-lifetime>0，会被重置为0；不等于0且小于10秒，会被重置为10秒。(只有空闲连接数大于最大连接数且空闲时间超过该值，才会被释放)
+      max-lifetime: 540000    # 连接最大存活时间.不等于0且小于30秒，会被重置为默认值30分钟.设置应该比mysql设置的超时时间短
+      connection-test-query: SELECT 1   #连接测试查询
+  jackson:  #返回json的全局时间格式
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl   # mybatis日志
