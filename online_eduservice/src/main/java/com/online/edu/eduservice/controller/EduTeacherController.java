@@ -22,6 +22,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/eduservice/teacher")
+@CrossOrigin
 public class EduTeacherController {
 
     @Autowired
@@ -43,9 +44,13 @@ public class EduTeacherController {
      * @return
      */
     @DeleteMapping("{id}")
-    public boolean deleteTeacherById(@PathVariable String id){
-        boolean b = eduTeacherService.removeById(id);
-        return b;
+    public R deleteTeacherById(@PathVariable String id) {
+        boolean flag = eduTeacherService.deleteTeacherById(id);
+        if(flag) {
+            return R.ok();
+        } else {
+            return R.error();
+        }
     }
 
     /**
@@ -127,7 +132,7 @@ public class EduTeacherController {
     }
 
     /**
-     * 7、根据id修改的
+     * 7、修改讲师
      * @param eduTeacher
      * @return
      */
@@ -139,6 +144,20 @@ public class EduTeacherController {
         }else {
             return R.error();
         }
+    }
+
+    /**
+     * 模拟登录
+     * @return
+     */
+    @PostMapping("login")
+    public R login(){
+        return R.ok().data("token","admin");
+    }
+
+    @GetMapping("info")
+    public R info(){
+        return R.ok().data("roles","[admin]").data("name","admin").data("avatar","https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
     }
 
 

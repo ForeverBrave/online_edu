@@ -47,4 +47,15 @@ public class EduTeacherServiceImpl extends ServiceImpl<EduTeacherMapper, EduTeac
         this.baseMapper.selectPage(pageTeacher,wrapper);
 
     }
+
+    /**
+     * 根据id删除讲师
+     * @param id
+     * @return
+     */
+    @Override
+    public boolean deleteTeacherById(String id) {
+        int result = this.baseMapper.deleteById(id);
+        return result>0;
+    }
 }

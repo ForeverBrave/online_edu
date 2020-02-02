@@ -21,4 +21,11 @@ public interface EduTeacherService extends IService<EduTeacher> {
      * @param queryTeacher
      */
     void pageListCondition(Page<EduTeacher> pageTeacher, QueryTeacher queryTeacher);
+
+    /**
+     * 逻辑删除讲师
+     * @param id
+     * @return
+     */
+    boolean deleteTeacherById(String id);
 }
