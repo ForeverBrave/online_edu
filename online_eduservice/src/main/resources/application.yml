@@ -32,3 +32,11 @@ mybatis-plus:
 logging:
   level:
     root: warn  # 设置日志级别(warn以及warn级别以上的才输出到控制台)
+# 配置阿里云oss的固定值
+aliyun:
+  oss:
+    file:
+      endpoint: oss-cn-hangzhou.aliyuncs.com
+      accesskeyid: LTAI4FhTVQJEAXrJm9ZzVRE1
+      accesskeysecret: EsWj2EuPeHYRwdKCbVoXgBmaTv3Wzp
+      bucketname: edu-teacher-icon
