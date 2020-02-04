@@ -2,6 +2,7 @@ package com.online.edu.eduservice.controller;
 
 
 import com.online.edu.common.R;
+import com.online.edu.eduservice.entity.EduSubject;
 import com.online.edu.eduservice.entity.dto.OneSubjectDto;
 import com.online.edu.eduservice.service.EduSubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,51 @@ public class EduSubjectController {
     public R getAllSubjectList(){
         List<OneSubjectDto> list = eduSubjectService.getSubjectList();
         return R.ok().data("OneSubjectDto",list);
+    }
+
+    /**
+     * 删除分类
+     * @param id
+     * @return
+     */
+    @DeleteMapping("{id}")
+    public R deleteSubjectById(@PathVariable String id){
+        boolean flag = eduSubjectService.deleteSubjectById(id);
+        if(flag){
+            return R.ok();
+        }else {
+            return R.error();
+        }
+    }
+
+    /**
+     * 添加一级分类
+     * @param eduSubject
+     * @return
+     */
+    @PostMapping("addOneLevel")
+    public R addOneLevel(@RequestBody EduSubject eduSubject){
+        boolean flag = eduSubjectService.saveOneLevel(eduSubject);
+        if (flag) {
+            return R.ok();
+        }else {
+            return R.error();
+        }
+    }
+
+    /**
+     * 添加二级分类
+     * @param eduSubject
+     * @return
+     */
+    @PostMapping("addTwoLevel")
+    public R addTwoLevel(@RequestBody EduSubject eduSubject){
+        boolean flag = eduSubjectService.saveTwoLevel(eduSubject);
+        if (flag) {
+            return R.ok();
+        }else {
+            return R.error();
+        }
     }
 
 

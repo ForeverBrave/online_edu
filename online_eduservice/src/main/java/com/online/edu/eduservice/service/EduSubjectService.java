@@ -28,4 +28,25 @@ public interface EduSubjectService extends IService<EduSubject> {
      * @return
      */
     List<OneSubjectDto> getSubjectList();
+
+    /**
+     * 删除分类
+     * @param id
+     * @return
+     */
+    boolean deleteSubjectById(String id);
+
+    /**
+     * 添加一级分类
+     * @param eduSubject
+     * @return
+     */
+    boolean saveOneLevel(EduSubject eduSubject);
+
+    /**
+     * 添加二级分类
+     * @param eduSubject
+     * @return
+     */
+    boolean saveTwoLevel(EduSubject eduSubject);
 }

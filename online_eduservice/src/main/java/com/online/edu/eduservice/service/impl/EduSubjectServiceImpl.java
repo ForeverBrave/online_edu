@@ -192,6 +192,64 @@ public class EduSubjectServiceImpl extends ServiceImpl<EduSubjectMapper, EduSubj
     }
 
     /**
+     * 删除分类
+     * @param id
+     * @return
+     */
+    @Override
+    public boolean deleteSubjectById(String id) {
+        //判断一级分类下面有二级分类
+        //根据parent_id查询
+        QueryWrapper<EduSubject> wrapper = new QueryWrapper<>();
+        wrapper.eq("parent_id",id);
+        Integer count = this.baseMapper.selectCount(wrapper);
+        //如果有二级分类
+        if(count>0){
+            return false;
+        }else {
+            //没有二级分类
+            //进行删除
+            int result = this.baseMapper.deleteById(id);
+            return result > 0;
+        }
+    }
+
+    /**
+     * 添加一级分类
+     * @param eduSubject
+     * @return
+     */
+    @Override
+    public boolean saveOneLevel(EduSubject eduSubject) {
+        //判断一级分类是否存在
+        EduSubject existOneSubject = this.existOneSubject(eduSubject.getTitle());
+        //不存在
+        if (existOneSubject==null) {
+            eduSubject.setParentId("0");
+            int result = this.baseMapper.insert(eduSubject);
+            return result>0;
+        }
+        return false;
+    }
+
+    /**
+     * 添加二级分类
+     * @param eduSubject
+     * @return
+     */
+    @Override
+    public boolean saveTwoLevel(EduSubject eduSubject) {
+        //判断是否存在二级分类
+        EduSubject existTwoSubject = this.existTwoSubject(eduSubject.getTitle(), eduSubject.getParentId());
+        //不存在，则添加
+        if (existTwoSubject==null) {
+            int result = this.baseMapper.insert(eduSubject);
+            return result>0;
+        }
+        return false;
+    }
+
+    /**
      * 判断数据库表里是否存在一级分类
      * @param name
      * @return
