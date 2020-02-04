@@ -2,6 +2,10 @@ package com.online.edu.eduservice.service;
 
 import com.online.edu.eduservice.entity.EduSubject;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.online.edu.eduservice.entity.dto.OneSubjectDto;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +17,15 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface EduSubjectService extends IService<EduSubject> {
 
+    /**
+     * 读取excel内容
+     * @param file
+     */
+    List<String> importSubject(MultipartFile file);
+
+    /**
+     * 返回所有分类数据，返回要求的json数据格式
+     * @return
+     */
+    List<OneSubjectDto> getSubjectList();
 }
