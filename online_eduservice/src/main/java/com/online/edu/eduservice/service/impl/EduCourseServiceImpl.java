@@ -1,13 +1,18 @@
 package com.online.edu.eduservice.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.online.edu.eduservice.entity.EduCourse;
 import com.online.edu.eduservice.entity.EduCourseDescription;
+import com.online.edu.eduservice.entity.EduTeacher;
 import com.online.edu.eduservice.entity.form.CourseInfoForm;
+import com.online.edu.eduservice.entity.query.QueryCourse;
 import com.online.edu.eduservice.handler.EduException;
 import com.online.edu.eduservice.mapper.EduCourseMapper;
 import com.online.edu.eduservice.service.EduCourseDescriptionService;
 import com.online.edu.eduservice.service.EduCourseService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,5 +64,79 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         }else {
             return null;
         }
+    }
+
+    /**
+     * 根据id查询课程信息
+     * @param id
+     * @return
+     */
+    @Override
+    public CourseInfoForm getCourseId(String id) {
+        //查询两张表
+        //1、根据id查询课程基本信息表
+        EduCourse eduCourse = this.baseMapper.selectById(id);
+        if (eduCourse == null) {
+            //没有课程信息
+            throw new EduException(20001,"没有课程信息!");
+        }
+
+        CourseInfoForm courseInfoForm = new CourseInfoForm();
+        BeanUtils.copyProperties(eduCourse,courseInfoForm);
+
+        //2、根据id查询课程描述表
+        EduCourseDescription eduCourseDescription = eduCourseDescriptionService.getById(id);
+        String description = eduCourseDescription.getDescription();
+        courseInfoForm.setDescription(description);
+
+        return courseInfoForm;
+    }
+
+    /**
+     * 修改课程
+     * @param courseInfoForm
+     * @return
+     */
+    @Override
+    public Boolean updateCourse(CourseInfoForm courseInfoForm) {
+        
+        //1、修改课程基本信息表
+        EduCourse eduCourse = new EduCourse();
+        BeanUtils.copyProperties(courseInfoForm,eduCourse);
+        int result = this.baseMapper.updateById(eduCourse);
+        if (result==0) {
+            throw new EduException(20001,"修改分类失败!");
+        }
+
+        //2、修改课程描述表
+        EduCourseDescription eduCourseDescription = new EduCourseDescription();
+        BeanUtils.copyProperties(courseInfoForm,eduCourseDescription);
+        boolean b = eduCourseDescriptionService.updateById(eduCourseDescription);
+        return b;
+    }
+
+    /**
+     * 条件查询带分页
+     * @param pageCourse
+     * @param queryCourse
+     */
+    @Override
+    public void pageListCondition(Page<EduCourse> pageCourse, QueryCourse queryCourse) {
+        //关键： queryCourse 有传递过来的条件值，判断，如果有条件值，则拼接条件
+        if(pageCourse == null){
+            //直接查询分页，不进行条件操作
+            this.baseMapper.selectPage(pageCourse,null);
+            return;
+        }
+
+        //如果queryTeacher不为空
+        QueryWrapper<EduCourse> wrapper = new QueryWrapper<>();
+
+        wrapper.like(StringUtils.isNotEmpty(queryCourse.getTitle()),"title",queryCourse.getTitle());
+        wrapper.eq(StringUtils.isNotEmpty(queryCourse.getTeacherId()),"teacher_id",queryCourse.getTeacherId());
+        wrapper.eq(StringUtils.isNotEmpty(queryCourse.getSubjectParentId()),"subject_parent_id",queryCourse.getSubjectParentId());
+        wrapper.eq(StringUtils.isNotEmpty(queryCourse.getSubjectId()),"subject_id",queryCourse.getSubjectId());
+
+        this.baseMapper.selectPage(pageCourse,wrapper);
     }
 }

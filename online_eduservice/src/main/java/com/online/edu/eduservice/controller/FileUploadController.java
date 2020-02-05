@@ -4,6 +4,7 @@ import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.online.edu.common.R;
 import com.online.edu.eduservice.handler.ConstantPropertiesUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,7 +29,7 @@ public class FileUploadController {
      * @return
      */
     @PostMapping("upload")
-    public R uploadTeacherIcon(@RequestParam("file") MultipartFile file){
+    public R uploadTeacherIcon(@RequestParam("file") MultipartFile file,@RequestParam(value = "host",required = false) String host){
         // Endpoint以杭州为例，其它Region请按实际情况填写。
         String endpoint = ConstantPropertiesUtil.END_POINT;
         // 阿里云主账号AccessKey拥有所有API的访问权限，风险很高。强烈建议您创建并使用RAM账号进行API访问或日常运维，请登录 https://ram.console.aliyun.com 创建RAM账号。
@@ -47,8 +48,15 @@ public class FileUploadController {
             String filePath = new DateTime().toString("yyyy/MM/dd");
 
             //拼接文件完整路径  /2020/02/03/文件名
-            filename = filePath + "/" +filename;
+            //filename = filePath + "/" +filename;
 
+            String hostName = ConstantPropertiesUtil.HOST;
+            //如果上传的是头像，则host里为空，如果上传封面host则有值
+            if (StringUtils.isNotEmpty(host)) {
+                hostName = host;
+            }
+
+            filename = filePath+"/"+hostName+"/"+filename;
 
             InputStream inputStream = file.getInputStream();
 
@@ -62,6 +70,7 @@ public class FileUploadController {
             // 关闭OSSClient。
             ossClient.shutdown();
 
+            //http://.......//2020/02/03/career/01.jpg
             String path = "http://"+yourBucketName+"."+endpoint+"/"+filename;
 
             return R.ok().data("imgurl",path);

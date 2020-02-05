@@ -40,3 +40,4 @@ aliyun:
       accesskeyid: LTAI4FhTVQJEAXrJm9ZzVRE1
       accesskeysecret: EsWj2EuPeHYRwdKCbVoXgBmaTv3Wzp
       bucketname: edu-teacher-icon
+      host: career
