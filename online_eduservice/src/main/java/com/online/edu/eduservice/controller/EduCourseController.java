@@ -94,5 +94,19 @@ public class EduCourseController {
         return R.ok().data(map);
     }
 
+    /**
+     * 删除课程方法
+     * @return
+     */
+    @DeleteMapping("deleteCourseById/{id}")
+    public R deleteCourseById(@PathVariable String id){
+        Boolean flag = eduCourseService.removeCourseById(id);
+        if (flag) {
+            return R.ok();
+        }else {
+            return R.error();
+        }
+    }
+
 }
 

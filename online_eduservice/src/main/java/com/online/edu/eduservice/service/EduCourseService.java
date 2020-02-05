@@ -44,4 +44,10 @@ public interface EduCourseService extends IService<EduCourse> {
      */
     void pageListCondition(Page<EduCourse> pageCourse, QueryCourse queryCourse);
 
+    /**
+     * 删除课程方法
+     * @param id
+     * @return
+     */
+    Boolean removeCourseById(String id);
 }

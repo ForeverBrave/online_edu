@@ -13,4 +13,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface EduCourseDescriptionService extends IService<EduCourseDescription> {
 
+    /**
+     * 根据课程id删除课程描述
+     * @param id
+     */
+    void deleteDescriptionByCourseId(String id);
 }
