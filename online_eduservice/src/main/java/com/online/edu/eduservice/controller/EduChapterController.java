@@ -54,12 +54,12 @@ public class EduChapterController {
 
     /**
      * 根据id查询章节
-     * @param chapterId
+     * @param chapterid
      * @return
      */
-    @GetMapping("getChapterById/{chapterId}")
-    public R getChapterById(String chapterId){
-        EduChapter eduChapter = eduChapterService.getById(chapterId);
+    @GetMapping("getChapterById/{chapterid}")
+    public R getChapterById(@PathVariable String chapterid){
+        EduChapter eduChapter = eduChapterService.getById(chapterid);
         return R.ok().data("eduChapter",eduChapter);
     }
 
