@@ -3,6 +3,7 @@ package com.online.edu.eduservice.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.online.edu.eduservice.entity.EduCourse;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.online.edu.eduservice.entity.dto.CourseInfoDto;
 import com.online.edu.eduservice.entity.form.CourseInfoForm;
 import com.online.edu.eduservice.entity.query.QueryCourse;
 
@@ -50,4 +51,11 @@ public interface EduCourseService extends IService<EduCourse> {
      * @return
      */
     Boolean removeCourseById(String id);
+
+    /**
+     * 根据课程id查询课程详细信息
+     * @param courseId
+     * @return
+     */
+    CourseInfoDto getAllCourseInfo(String courseId);
 }

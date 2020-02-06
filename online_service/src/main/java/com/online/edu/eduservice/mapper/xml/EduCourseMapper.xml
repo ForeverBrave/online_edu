@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.online.edu.eduservice.mapper.EduCourseMapper">
+
+<!--  根据课程id查询课程详细信息  -->
+    <select id="getAllCourseInfoById" resultType="com.online.edu.eduservice.entity.dto.CourseInfoDto">
+    SELECT
+        c.id,
+        c.title,
+        c.cover,
+        cd.description,
+        CONVERT(c.price, DECIMAL(8,2)) AS price,
+        s1.title AS levelOne,
+        s2.title AS levelTwo,
+        t.name AS teacherName
+    FROM
+        edu_course c
+        LEFT JOIN edu_course_description cd ON c.id=cd.id
+        LEFT JOIN edu_teacher t ON c.teacher_id = t.id
+        LEFT JOIN edu_subject s1 ON c.subject_parent_id = s1.id
+        LEFT JOIN edu_subject s2 ON c.subject_id = s2.id
+    WHERE
+        c.id = #{id}
+    </select>
+
+</mapper>

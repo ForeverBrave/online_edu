@@ -29,6 +29,7 @@ spring:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl   # mybatis日志
+  mapper-locations: classpath:com/online/edu/eduservice/mapper/xml/*.xml    #配置mapper xml文件的路径
 logging:
   level:
     root: warn  # 设置日志级别(warn以及warn级别以上的才输出到控制台)

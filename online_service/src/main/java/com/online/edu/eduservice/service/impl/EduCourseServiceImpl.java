@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.online.edu.eduservice.entity.EduCourse;
 import com.online.edu.eduservice.entity.EduCourseDescription;
 import com.online.edu.eduservice.entity.EduTeacher;
+import com.online.edu.eduservice.entity.dto.CourseInfoDto;
 import com.online.edu.eduservice.entity.form.CourseInfoForm;
 import com.online.edu.eduservice.entity.query.QueryCourse;
 import com.online.edu.eduservice.handler.EduException;
@@ -164,5 +165,15 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         //4、删除课程本身
         int result = this.baseMapper.deleteById(id);
         return result>0;
+    }
+
+    /**
+     * 根据课程id查询课程详细信息
+     * @param courseId
+     * @return
+     */
+    @Override
+    public CourseInfoDto getAllCourseInfo(String courseId) {
+        return this.baseMapper.getAllCourseInfoById(courseId);
     }
 }
