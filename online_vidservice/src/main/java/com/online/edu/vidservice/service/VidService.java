@@ -1,5 +1,6 @@
 package com.online.edu.vidservice.service;
 
+import com.aliyuncs.exceptions.ClientException;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -16,4 +17,9 @@ public interface VidService {
      */
     String uploadAliyunVideo(MultipartFile file);
 
+    /**
+     * 实现删除云端视频的方法
+     * @param videoId
+     */
+    void deleteAliyunVideoById(String videoId) throws ClientException;
 }
