@@ -120,5 +120,23 @@ public class EduCourseController {
         return R.ok().data("courseInfo",courseInfoDto);
     }
 
+    /**
+     * 最终发布课程的方法，修改课程状态
+     * @param courseId
+     * @return
+     */
+    @GetMapping("publishCourse/{courseId}")
+    public R publishCourse(@PathVariable String courseId){
+        EduCourse eduCourse = new EduCourse();
+        eduCourse.setId(courseId);
+        eduCourse.setStatus("Normal");
+        boolean update = eduCourseService.updateById(eduCourse);
+        if (update) {
+            return R.ok();
+        }else {
+            return R.error();
+        }
+    }
+
 }
 

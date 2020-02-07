@@ -5,6 +5,7 @@
     <modules>
         <module>online_service</module>
         <module>online_common</module>
+        <module>online_vidservice</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

@@ -1,4 +1,4 @@
-package com.online.edu.eduservice.config;
+package com.online.edu.vidservice.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,8 +31,8 @@ public class Swagger2Config {
     private ApiInfo webApiInfo(){
 
         return new ApiInfoBuilder()
-                .title("网站-讲师管理API文档")
-                .description("本文档描述了讲师管理微服务接口定义")
+                .title("网站-阿里云视频上传API文档")
+                .description("本文档描述了阿里云视频上传微服务接口定义")
                 .version("1.0")
                 .contact(new Contact("Brave", "https://blog.ideazh.top", "734856476@qq.com"))
                 .build();

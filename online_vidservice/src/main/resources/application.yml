@@ -1,0 +1,16 @@
+server:
+  port: 8002 # 服务端口
+spring:
+  application:
+    name: online-vidservice # 服务名
+  profiles:
+    active: dev # 环境设置：dev、test、prod
+  servlet:
+    multipart:
+      max-file-size: 1024MB # 最大上传单个文件大小：默认1M
+      max-request-size: 1024MB # 最大置总上传的数据大小 ：默认10M
+aliyun: #阿里云 vod
+  vod: #不同的服务器，地址不同
+    file:
+      keyid: LTAI4FhTVQJEAXrJm9ZzVRE1
+      keysecret: EsWj2EuPeHYRwdKCbVoXgBmaTv3Wzp
