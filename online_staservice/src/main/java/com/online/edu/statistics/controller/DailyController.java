@@ -4,11 +4,7 @@ package com.online.edu.statistics.controller;
 import com.online.edu.common.R;
 import com.online.edu.statistics.service.DailyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -20,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/statistics/daily")
+@CrossOrigin
 public class DailyController {
 
     @Autowired
