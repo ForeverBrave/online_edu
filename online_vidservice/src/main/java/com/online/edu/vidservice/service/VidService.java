@@ -3,6 +3,8 @@ package com.online.edu.vidservice.service;
 import com.aliyuncs.exceptions.ClientException;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 /**
  * @Author : Brave
  * @Version : 1.0
@@ -22,4 +24,10 @@ public interface VidService {
      * @param videoId
      */
     void deleteAliyunVideoById(String videoId) throws ClientException;
+
+    /**
+     * 删除阿里云多个视频
+     * @param videoList
+     */
+    void deleteMoreAliyunVideo(List videoList);
 }

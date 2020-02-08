@@ -1,0 +1,8 @@
+server:
+  port: 9002 #服务端口
+eureka:
+  client:
+    register-with-eureka: false #是否将自己注册到Eureka服务器中，本身是服务器，无需注册
+    fetch-registry: false #是否从Eureka中获取注册信息
+    service-url:
+      defaultZone: http://127.0.0.1:${server.port}/eureka/ #Eureka客户端与Eureka服务端进行通信的地址

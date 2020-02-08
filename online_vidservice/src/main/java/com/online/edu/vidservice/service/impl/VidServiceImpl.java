@@ -10,11 +10,13 @@ import com.aliyuncs.vod.model.v20170321.DeleteVideoResponse;
 import com.online.edu.vidservice.service.VidService;
 import com.online.edu.vidservice.utils.AliyunVODSDKUtils;
 import com.online.edu.vidservice.utils.ConstantPropertiesUtil;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * @Author : Brave
@@ -77,6 +79,33 @@ public class VidServiceImpl implements VidService {
             DeleteVideoResponse response = client.getAcsResponse(request);
 
 
+        } catch (ClientException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 删除阿里云多个视频
+     * @param videoList
+     */
+    @Override
+    public void deleteMoreAliyunVideo(List videoList) {
+
+        try {
+            //初始化操作
+            String accessKeyId = ConstantPropertiesUtil.ACCESS_KEY_ID;
+            String accessKeySecret = ConstantPropertiesUtil.ACCESS_KEY_SECRET;
+            DefaultAcsClient client = AliyunVODSDKUtils.initVodClient(accessKeyId, accessKeySecret);
+
+            //创建删除视频的请求对象
+            DeleteVideoRequest request = new DeleteVideoRequest();
+            //设置删除多个视频id
+            //StringUtils.join(value1,value2);
+            //value1: 数组   value2: 根据什么内容进行分割
+            String videoIds = StringUtils.join(videoList.toArray(), ",");
+            request.setVideoIds(videoIds);
+            //调用方法,实现删除
+            DeleteVideoResponse response = client.getAcsResponse(request);
         } catch (ClientException e) {
             e.printStackTrace();
         }

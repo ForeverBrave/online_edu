@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 /**
  * @Author : Brave
  * @Version : 1.0
@@ -50,6 +52,22 @@ public class VidController {
             e.printStackTrace();
             return R.error();
         }
-
     }
+
+    /**
+     * 删除阿里云多个视频
+     * @param videoList   参数为多个视频id的list集合
+     * @return
+     */
+    @DeleteMapping("deleteMoreAliyunVideo")
+    public R deleteMoreAliyunVideo(@RequestParam("videoList") List videoList){
+        try {
+            vidService.deleteMoreAliyunVideo(videoList);
+            return R.ok();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return R.error();
+        }
+    }
+
 }

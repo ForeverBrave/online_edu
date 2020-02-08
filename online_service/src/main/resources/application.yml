@@ -42,3 +42,9 @@ aliyun:
       accesskeysecret: EsWj2EuPeHYRwdKCbVoXgBmaTv3Wzp
       bucketname: edu-teacher-icon
       host: career
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:9002/eureka/ #指定注册中心地址
+  instance:
+    prefer-ip-address: true #eureka服务器上获取的是服务器的ip地址，否则是主机名
