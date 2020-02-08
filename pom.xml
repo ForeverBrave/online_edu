@@ -6,6 +6,9 @@
         <module>online_service</module>
         <module>online_common</module>
         <module>online_vidservice</module>
+        <module>online_ekservice</module>
+        <module>online_staservice</module>
+        <module>online_ucservice</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
