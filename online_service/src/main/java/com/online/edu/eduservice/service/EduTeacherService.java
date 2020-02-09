@@ -1,9 +1,13 @@
 package com.online.edu.eduservice.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.online.edu.eduservice.entity.EduCourse;
 import com.online.edu.eduservice.entity.EduTeacher;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.online.edu.eduservice.entity.query.QueryTeacher;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -28,4 +32,18 @@ public interface EduTeacherService extends IService<EduTeacher> {
      * @return
      */
     boolean deleteTeacherById(String id);
+
+    /**
+     * 前台分页查询讲师的方法
+     * @param pageTeacher
+     * @return
+     */
+    Map<String, Object> getFrontTeacherList(Page<EduTeacher> pageTeacher);
+
+    /**
+     * 查询讲师所讲课程，返回list集合
+     * @param id
+     * @return
+     */
+    List<EduCourse> getCourseListByTeacherId(String id);
 }
