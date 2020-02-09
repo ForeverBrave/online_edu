@@ -52,6 +52,10 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
 
         <!--lombok用来简化实体类：需要安装lombok插件-->
         <dependency>
@@ -71,6 +75,7 @@
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
         </dependency>
+
     </dependencies>
 
     <!-- 项目打包时会将java目录中的*.xml文件也进行打包 -->
