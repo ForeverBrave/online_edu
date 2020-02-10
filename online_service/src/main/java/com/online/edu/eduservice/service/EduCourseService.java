@@ -3,9 +3,12 @@ package com.online.edu.eduservice.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.online.edu.eduservice.entity.EduCourse;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.online.edu.eduservice.entity.dto.CourseAllInfoDto;
 import com.online.edu.eduservice.entity.dto.CourseInfoDto;
 import com.online.edu.eduservice.entity.form.CourseInfoForm;
 import com.online.edu.eduservice.entity.query.QueryCourse;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -58,4 +61,18 @@ public interface EduCourseService extends IService<EduCourse> {
      * @return
      */
     CourseInfoDto getAllCourseInfo(String courseId);
+
+    /**
+     * 前台查询所有课程带分页
+     * @param pageCourse
+     * @return
+     */
+    Map<String, Object> listCoursePage(Page<EduCourse> pageCourse);
+
+    /**
+     * 前台根据课程id查询课程详情
+     * @param id
+     * @return
+     */
+    CourseAllInfoDto getCourseAllInfo(String id);
 }

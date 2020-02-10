@@ -32,7 +32,7 @@ public class FrontEduTeacherController {
      * @param limit
      * @return
      */
-    @GetMapping("/eduservice/frontTeacher/{page}/{limit}")
+    @GetMapping("{page}/{limit}")
     public R getFrontTeacherListPage(@PathVariable Long page,@PathVariable Long limit){
         //实现分页查询
         Page<EduTeacher> pageTeacher = new Page<>(page,limit);

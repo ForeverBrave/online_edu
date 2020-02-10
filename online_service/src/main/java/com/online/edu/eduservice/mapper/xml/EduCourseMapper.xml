@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.online.edu.eduservice.mapper.EduCourseMapper">
 
-<!--  根据课程id查询课程详细信息  -->
+    <!--  根据课程id查询课程详细信息  -->
     <select id="getAllCourseInfoById" resultType="com.online.edu.eduservice.entity.dto.CourseInfoDto">
     SELECT
         c.id,
@@ -23,4 +23,21 @@
         c.id = #{id}
     </select>
 
+    <!-- 前台根据课程id查询课程详情 -->
+    <select id="getCourseAllInfo" resultType="com.online.edu.eduservice.entity.dto.CourseAllInfoDto">
+        SELECT c.id,c.title,c.price,c.cover,
+                c.lesson_num,c.buy_count,c.view_count,
+                cd.description,
+               et.id AS teacherId,
+               et.name AS teacherName,et.avatar,et.intro,
+               s1.id AS subjectLevelOneId,
+               s1.title AS subjectLevelOne,
+               s2.id AS subjectLevelTwoId,
+               s2.title AS subjectLevelTwo
+        FROM edu_course c LEFT OUTER JOIN edu_course_description cd ON c.id=cd.id
+                          LEFT OUTER JOIN edu_teacher et ON c.teacher_id=et.id
+                          LEFT OUTER JOIN edu_subject s1 ON c.subject_parent_id=s1.id
+                          LEFT OUTER JOIN edu_subject s2 ON c.subject_id=s2.id
+         WHERE c.id=#{id}
+    </select>
 </mapper>

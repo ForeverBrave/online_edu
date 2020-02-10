@@ -2,6 +2,7 @@ package com.online.edu.eduservice.mapper;
 
 import com.online.edu.eduservice.entity.EduCourse;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.online.edu.eduservice.entity.dto.CourseAllInfoDto;
 import com.online.edu.eduservice.entity.dto.CourseInfoDto;
 
 /**
@@ -20,5 +21,12 @@ public interface EduCourseMapper extends BaseMapper<EduCourse> {
      * @return
      */
     CourseInfoDto getAllCourseInfoById(String courseId);
+
+    /**
+     * 前台根据课程id查询课程详情
+     * @param id
+     * @return
+     */
+    CourseAllInfoDto getCourseAllInfo(String id);
 
 }

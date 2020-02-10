@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.online.edu.eduservice.entity.EduCourse;
 import com.online.edu.eduservice.entity.EduCourseDescription;
 import com.online.edu.eduservice.entity.EduTeacher;
+import com.online.edu.eduservice.entity.dto.CourseAllInfoDto;
 import com.online.edu.eduservice.entity.dto.CourseInfoDto;
 import com.online.edu.eduservice.entity.form.CourseInfoForm;
 import com.online.edu.eduservice.entity.query.QueryCourse;
@@ -19,6 +20,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -175,5 +180,51 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
     @Override
     public CourseInfoDto getAllCourseInfo(String courseId) {
         return this.baseMapper.getAllCourseInfoById(courseId);
+    }
+
+    /**
+     * 查询所有课程带分页(前端)
+     * @param pageCourse
+     * @return
+     */
+    @Override
+    public Map<String, Object> listCoursePage(Page<EduCourse> pageCourse) {
+        this.baseMapper.selectPage(pageCourse,null);
+
+        //每页数据
+        List<EduCourse> records = pageCourse.getRecords();
+        //总记录数
+        long total = pageCourse.getTotal();
+        //每页显示记录数
+        long pages = pageCourse.getPages();
+        //总页数
+        long size = pageCourse.getSize();
+        //当前页
+        long current = pageCourse.getCurrent();
+        //是否有下一页
+        boolean hasNext = pageCourse.hasNext();
+        //是否有上一页
+        boolean hasPrevious = pageCourse.hasPrevious();
+
+        Map<String,Object> map = new HashMap<>();
+        map.put("items", records);
+        map.put("current", current);
+        map.put("pages", pages);
+        map.put("size", size);
+        map.put("total", total);
+        map.put("hasNext", hasNext);
+        map.put("hasPrevious", hasPrevious);
+
+        return map;
+    }
+
+    /**
+     * 前台根据课程id查询课程详情
+     * @param id
+     * @return
+     */
+    @Override
+    public CourseAllInfoDto getCourseAllInfo(String id) {
+        return this.baseMapper.getCourseAllInfo(id);
     }
 }
