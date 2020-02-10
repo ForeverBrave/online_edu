@@ -39,3 +39,8 @@ eureka:
       defaultZone: http://127.0.0.1:9002/eureka/ #指定注册中心地址
   instance:
     prefer-ip-address: true #eureka服务器上获取的是服务器的ip地址，否则是主机名
+wx:
+  open:
+    app_id: wxc606fb748aedee7c
+    app_secret: 6c94e426cc7f49e29b42231ee202b1a3
+    redirect_url: http://yaohuan.work/api/ucenter/wx/callback
