@@ -1,8 +1,13 @@
 package com.online.edu.vidservice.controller;
 
+import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.exceptions.ClientException;
+import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthRequest;
+import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthResponse;
 import com.online.edu.common.R;
 import com.online.edu.vidservice.service.VidService;
+import com.online.edu.vidservice.utils.AliyunVODSDKUtils;
+import com.online.edu.vidservice.utils.ConstantPropertiesUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -68,6 +73,36 @@ public class VidController {
             e.printStackTrace();
             return R.error();
         }
+    }
+
+    /**
+     * 根据视频id获取播放凭证
+     * @param vid
+     * @return
+     */
+    @GetMapping("getPlayAuth/{vid}")
+    public R getPlayAutoId(@PathVariable String vid){
+        try {
+            //初始化客户端、请求对象和相应对象
+            DefaultAcsClient client = AliyunVODSDKUtils.initVodClient(ConstantPropertiesUtil.ACCESS_KEY_ID,ConstantPropertiesUtil.ACCESS_KEY_SECRET);
+
+            GetVideoPlayAuthRequest request = new GetVideoPlayAuthRequest();
+            GetVideoPlayAuthResponse response = new GetVideoPlayAuthResponse();
+
+            //设置请求参数
+            request.setVideoId(vid);
+            //获取请求响应
+            response = client.getAcsResponse(request);
+
+            //输出请求结果
+            //播放凭证
+            String playAuth = response.getPlayAuth();
+            return R.ok().data("playAuth",playAuth);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return R.error();
+        }
+
     }
 
 }
