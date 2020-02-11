@@ -3,6 +3,7 @@ package com.online.edu.ucenter.controller;
 import cn.hutool.core.util.IdUtil;
 import com.online.edu.common.R;
 import com.online.edu.ucenter.entity.Member;
+import com.online.edu.ucenter.entity.dto.LoginDto;
 import com.online.edu.ucenter.service.MemberService;
 import com.online.edu.ucenter.utils.JwtUtils;
 import io.jsonwebtoken.Claims;
@@ -12,7 +13,6 @@ import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.subject.Subject;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -58,16 +58,15 @@ public class UserController {
 
     /**
      * 根据电话、密码登录
-     * @param mobile
-     * @param password
+     * @param loginDto
      * @return
      */
     @PostMapping("login")
-    public String loginUser(String mobile,String password){
+    public String loginUser(@RequestBody LoginDto loginDto){
         //创建一个subject
         Subject subject = SecurityUtils.getSubject();
         //将用户名和密码进行封装
-        AuthenticationToken token = new UsernamePasswordToken(mobile, password);
+        AuthenticationToken token = new UsernamePasswordToken(loginDto.getMobile(), loginDto.getPassword());
 
         Member member = null;
         try {
@@ -78,6 +77,7 @@ public class UserController {
             //将用户对象封装进token中
             String userToken = JwtUtils.genJsonWebToken(member);
             //因为端口号不同存在跨域问题，cookie不能跨域，所以这里使用url重写
+
             return "redirect:http://localhost:3000?token=" + userToken;
 
         } catch (AuthenticationException e) {
