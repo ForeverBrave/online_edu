@@ -19,4 +19,11 @@ public interface MemberService extends IService<Member> {
      * @return
      */
     Integer countRegisterNum(String day);
+
+    /**
+     * 根据微信id判断是否有用户信息
+     * @param openid
+     * @return
+     */
+    Member existWxUser(String openid);
 }

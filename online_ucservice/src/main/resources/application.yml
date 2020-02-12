@@ -42,5 +42,5 @@ eureka:
 wx:
   open:
     app_id: wxc606fb748aedee7c
-    app_secret: 6c94e426cc7f49e29b42231ee202b1a3
+    app_secret: e0b7f5277520dbe817dfcd1a96754fbf
     redirect_url: http://yaohuan.work/api/ucenter/wx/callback

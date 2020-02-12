@@ -1,5 +1,6 @@
 package com.online.edu.ucenter.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.online.edu.ucenter.entity.Member;
 import com.online.edu.ucenter.mapper.MemberMapper;
 import com.online.edu.ucenter.service.MemberService;
@@ -26,4 +27,19 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
     public Integer countRegisterNum(String day) {
         return this.baseMapper.countRegisterNum(day);
     }
+
+    /**
+     * 根据微信id判断是否有用户信息
+     * @param openid
+     * @return
+     */
+    @Override
+    public Member existWxUser(String openid) {
+        QueryWrapper<Member> wrapper = new QueryWrapper<>();
+        wrapper.eq("openid",openid);
+        Member member = baseMapper.selectOne(wrapper);
+        return member;
+    }
+
+
 }
