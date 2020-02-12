@@ -1,0 +1,25 @@
+server:
+  port: 9003
+spring:
+  application:
+    name: online-gateway
+#zuul:
+#  routes:
+#    api-service:
+#      path: /eduservice/**  # 路径中是否带有/eduservice
+#      url: http://localhost:8001/eduservice/  #有，则跳转到8001端口
+#    api-ucenter:
+#      path: /ucenter/**
+#      url: http://localhost:8003/ucenter/
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:9002/eureka/ #指定注册中心地址
+  instance:
+    prefer-ip-address: true # eureka服务器上获取的是服务器的ip地址，否则是主机名
+zuul:
+  #ignored-services: online-ucenter # 让某i个服务不能通过网关进行访问
+  #ignored-patterns: /**/eduservice/** # 禁止某些路径进行访问
+  routes:
+    online-eduservice: /edu-api/** # 自定义路由映射，给服务名称起别名(online-eduservice为服务名称)
+  sensitive-headers: # 把zuul过滤列表清空（这样zuul就不会过滤cookie值）

@@ -9,6 +9,7 @@
         <module>online_ekservice</module>
         <module>online_staservice</module>
         <module>online_ucservice</module>
+        <module>online_gateway</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

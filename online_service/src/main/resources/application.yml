@@ -4,7 +4,7 @@ server:
 # 服务名
 spring:
   application:
-    name: online_eduservice
+    name: online-eduservice
 # 环境设置：dev、test、prod
   profiles:
     active: dev
